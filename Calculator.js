@@ -53,9 +53,6 @@ Array.from(keyPadd).map(key => key.addEventListener("click", () =>{
     displayNumberDown.textContent += key.textContent
 }))
 Array.from(opBtn).map(btn => btn.addEventListener("click", () =>{
-    opSelected = true
-    if(btn.textContent != '=')
-        op = btn.textContent
     switch(btn.textContent)
     {
         case "CC":
@@ -76,11 +73,14 @@ Array.from(opBtn).map(btn => btn.addEventListener("click", () =>{
             if(displayNumberDown.textContent.length == 0) displayNumberDown.textContent += 0
             if((+displayNumberDown.textContent) % 1 == 0 && displayNumberDown.textContent != "0.") displayNumberDown.textContent += "."
             break;
+        case "Delete":
+            if(displayNumberDown.textContent.length > 0) displayNumberDown.textContent = displayNumberDown.textContent.substring(0,displayNumberDown.textContent.length - 1)
+            break;
         default:
             if(firstNumberComplet)
             {
                 op = btn.textContent
-                number1 = +displayNumberDown.textContent 
+                if(!opSelected) number1 = +displayNumberDown.textContent 
                 displayNumberUp.textContent = number1 + " " + op
                 displayNumberDown.textContent = ""
                 opSelected = true
